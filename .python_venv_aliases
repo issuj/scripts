@@ -1,0 +1,3 @@
+#python3 venv
+alias entervenv="if [ -f ./venv/bin/activate ]; then bash --init-file <(cat ~/.bashrc ./venv/bin/activate; echo 'unalias newvenv; unalias entervenv') -i; else echo 'no venv'; fi"
+alias newvenv='python3 -m venv --prompt `basename \`pwd\`` venv; entervenv'
