@@ -112,7 +112,10 @@ for l in sys.stdin.readlines():
     if not week[0] <= today < week[1]:
         if daysSeen:
             total += weekTotal - expectWeek * weekFactor
-            print("Week {}/{}: {} / {}".format(*(week[0].isocalendar()[1::-1]), fmtDelta(weekTotal), fmtDelta(expectWeek*weekFactor)))
+            print("Week {}/{}: {} / {} {}".format(*(week[0].isocalendar()[1::-1]),
+                                                  fmtDelta(weekTotal),
+                                                  fmtDelta(expectWeek*weekFactor),
+                                                  fmtDelta(total, '+')))
         weekTotal = timedelta()
         week = weekRange(today)
         weekFactor = workWeekRatio(*week)
@@ -126,11 +129,10 @@ for l in sys.stdin.readlines():
         timeranges = [parse(t[1]) - parse(t[0]) for t in timeranges]
         dayTotal = sum(timeranges, timedelta())
         weekTotal += dayTotal
-        projection = weekTotal - min(daysSeen/(weekFactor*5), 1) * expectWeek * weekFactor
+        projection = weekTotal - min(daysSeen/(weekFactor*daysPerWeek), 1) * expectWeek * weekFactor
         print("{} {} ({}) {}".format(day, match.group(2).strip(), fmtDelta(dayTotal), fmtDelta(total + projection, '+')))
     elif matchZero:
-        projection = weekTotal - weekFactor * expectWeek/(5/weekFactor)
-        projection = weekTotal - min(daysSeen/(weekFactor*5), 1) * expectWeek * weekFactor
+        projection = weekTotal - min(daysSeen/(weekFactor*daysPerWeek), 1) * expectWeek * weekFactor
         print("{} {} ({}) {}".format(day, matchZero.group(2).strip(), fmtDelta(timedelta()), fmtDelta(total + projection, '+')))
     elif matchHoliday:
         weekTotal += expectWeek / 5
