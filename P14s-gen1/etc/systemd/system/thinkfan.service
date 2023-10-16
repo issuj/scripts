@@ -1,0 +1,16 @@
+[Unit]
+Description=simple and lightweight fan control program
+After=syslog.target
+
+[Service]
+Type=forking
+EnvironmentFile=-/etc/default/thinkfan
+ExecStartPre=/usr/local/bin/thinkfanconf.sh
+ExecStart=/usr/sbin/thinkfan $DAEMON_ARGS
+PIDFile=/var/run/thinkfan.pid
+ExecReload=/bin/kill -HUP $MAINPID
+
+[Install]
+WantedBy=multi-user.target
+
+
