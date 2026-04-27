@@ -1,0 +1,1 @@
+SUBSYSTEM=="block", KERNEL=="dm-*", ACTION=="add|change", ATTR{bdi/read_ahead_kb}="4"

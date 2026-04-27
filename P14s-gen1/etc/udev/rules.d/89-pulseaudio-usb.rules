@@ -1,0 +1,2 @@
+# Disable Lenovo Ultra Dock audio
+ATTRS{idVendor}=="17ef", ATTRS{idProduct}=="306f", ENV{PULSE_IGNORE}="1"

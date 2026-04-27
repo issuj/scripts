@@ -1,0 +1,1 @@
+SUBSYSTEM=="net", ACTION=="add", ATTRS{idVendor}=="0fce", ATTRS{idProduct}=="720d", NAME="android0", PROGRAM="/sbin/ip link set %k address 00:FF:EE:C0:FF:EE"
