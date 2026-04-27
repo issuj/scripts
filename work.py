@@ -90,10 +90,10 @@ expectDay = expectWeek / daysPerWeek
 
 for l in sys.stdin.readlines():
     l = l.strip()
-    matchdef = re.match('\*\* (\d{4}) hours=(\d+:\d{2}) days=(\d+(.\d+)?) start=(-?\d+:\d{2})', l)
-    match = re.match('(\d+\.\d+\.)\s+((\d+:\d+-\d+:\d+[\s,]*)+)', l)
-    matchZero = re.match('(\d+\.\d+\.)\s+(-)', l)
-    matchHoliday = re.match('(\d+\.\d+\.)\s+(\*)', l)
+    matchdef = re.match(r'\*\* (\d{4}) hours=(\d+:\d{2}) days=(\d+(.\d+)?) start=(-?\d+:\d{2})', l)
+    match = re.match(r'(\d+\.\d+\.)\s+((\d+:\d+-\d+:\d+[\s,]*)+)', l)
+    matchZero = re.match(r'(\d+\.\d+\.)\s+(-)', l)
+    matchHoliday = re.match(r'(\d+\.\d+\.)\s+(\*)', l)
     if matchdef:
         year = int(matchdef.group(1))
         week = weekRange(datetime(year=year, month=1, day=1))
@@ -122,7 +122,7 @@ for l in sys.stdin.readlines():
         daysSeen = 0
     daysSeen += 1
     if match:
-        timerangesStr = re.findall('\d+:\d+-\d+:\d+', l)
+        timerangesStr = re.findall(r'\d+:\d+-\d+:\d+', l)
         fmt = '%H:%M'
         parse = lambda tstr: datetime.strptime(tstr, fmt)
         timeranges = [tuple(t.split("-")) for t in timerangesStr]
